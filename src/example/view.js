@@ -1,9 +1,9 @@
 "use strict";
 
 import withStyle from "easy-with-style";  ///
+import { queryUtilities } from "occam-query";
 
 import { Element } from "easy";
-import { queryUtilities } from "../index";  ///
 import { CSSLexer, CSSParser } from "with-style";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
@@ -12,8 +12,8 @@ import SizeableDiv from "./view/div/sizeable";
 import NodesTextarea from "./view/textarea/nodes";
 import ContentTextarea from "./view/textarea/content";
 import MaximumDepthInput from "./view/input/maximumDepth";
-import ExpressionStringInput from "./view/input/expressionString";
 import ParseTreeTextarea from "./view/textarea/parseTree";
+import ExpressionStringInput from "./view/input/expressionString";
 
 const cssLexer = CSSLexer.fromNothing(),
       cssParser = CSSParser.fromNothing();

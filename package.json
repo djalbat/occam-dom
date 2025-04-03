@@ -10,7 +10,8 @@
     "url": "https://github.com/djalbat/occam-dom"
   },
   "dependencies": {
-    "occam-parsers": "^23.0.111"
+    "occam-parsers": "^23.0.111",
+    "occam-query": "^4.1.72"
   },
   "devDependencies": {
     "@swc/core": "^1.5.6",
