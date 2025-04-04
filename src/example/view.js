@@ -18,7 +18,7 @@ import InnerParseTreeTextarea from "./view/textarea/parseTree/inner";
 
 import { queryByExpressions } from "./utilities/query";
 
-const { orderNodes: orderOuterNodes, topmostNodeFromOuterNodes: topmostInnerNodeFromOuterNodes } = nodeUtilities;
+const { topmostNodeFromOuterNodes: topmostInnerNodeFromOuterNodes } = nodeUtilities;
 
 const cssLexer = CSSLexer.fromNothing(),
       cssParser = CSSParser.fromNothing();
@@ -36,14 +36,10 @@ class View extends Element {
     const outerNode = node, ///
           expressions = this.getExpressions(),
           maximumDepth = this.getMaximumDepth(),
-          outerNodes = queryByExpressions(outerNode, expressions, maximumDepth);
-
-    orderOuterNodes(outerNodes);
-
-    const topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
-          innerNode = topmostInnerNode; ///
-
-    const outerParseTree = outerNode.asParseTree(tokens),
+          outerNodes = queryByExpressions(outerNode, expressions, maximumDepth),
+          topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
+          innerNode = topmostInnerNode, ///
+          outerParseTree = outerNode.asParseTree(tokens),
           innerParseTree = innerNode.asParseTree(tokens);
 
     this.setOuterNodes(outerNodes, tokens); ///

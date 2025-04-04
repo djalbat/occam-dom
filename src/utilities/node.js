@@ -2,23 +2,16 @@
 
 import Node from "../node";
 
-export function orderNodes(nodes) {
-  nodes.sort((nodeA, nodeB) => {
-    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
-          result = nodeALessThanNodeB ?
-                    -1 :
-                      +1;
-
-    return result;
-  });
-}
-
 export function topmostNodeFromOuterNodes(Class, outerNodes) {
   if (outerNodes === undefined) {
     outerNodes = Class; ///
 
     Class = Node;  ///
   }
+
+  const nodes = outerNodes; ///
+
+  orderNodes(nodes);
 
   const topmostNode = Node.fromNothing(),
         outerNodeToNodeMap = new WeakMap();
@@ -51,9 +44,19 @@ export function topmostNodeFromOuterNodes(Class, outerNodes) {
 }
 
 export default {
-  orderNodes,
   topmostNodeFromOuterNodes
 };
+
+function orderNodes(nodes) {
+  nodes.sort((nodeA, nodeB) => {
+    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
+          result = nodeALessThanNodeB ?
+                     -1 :
+                       +1;
+
+    return result;
+  });
+}
 
 function isLessThan(nodeA, nodeB) {
   let lessThan = null;

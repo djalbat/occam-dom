@@ -157,6 +157,14 @@ export default class Node {
     return childNodes;
   }
 
+  asParseTree(tokens) {
+    const node = this,  ///
+          nodeParseTree = NodeParseTree.fromNodeAndTokens(node, tokens),
+          parseTree = nodeParseTree;  ///
+
+    return parseTree;
+  }
+
   static fromNothing(Class) {
     if (Class === undefined) {
       Class = Node; ///
