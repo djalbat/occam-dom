@@ -1,7 +1,6 @@
 "use strict";
 
 import withStyle from "easy-with-style";  ///
-import { queryUtilities } from "occam-query";
 
 import { Element } from "easy";
 import { CSSLexer, CSSParser } from "with-style";
@@ -13,12 +12,12 @@ import NodesTextarea from "./view/textarea/nodes";
 import ContentTextarea from "./view/textarea/content";
 import MaximumDepthInput from "./view/input/maximumDepth";
 import ParseTreeTextarea from "./view/textarea/parseTree";
-import ExpressionStringInput from "./view/input/expressionString";
+import ExpressionsTextarea from "./view/textarea/expressions";
+
+import { queryByExpressions } from "./utilities/query";
 
 const cssLexer = CSSLexer.fromNothing(),
       cssParser = CSSParser.fromNothing();
-
-const { queryByExpressionString } = queryUtilities;
 
 class View extends Element {
   keyUpHandler = (event, element) => {
@@ -36,9 +35,9 @@ class View extends Element {
 
     const abridged = true,
           parseTree = node.asParseTree(tokens, abridged),
-          expressionString = this.getExpressionString(),
+          expressions = this.getExpressions(),
           maximumDepth = this.getMaximumDepth(),
-          nodes = queryByExpressionString(node, expressionString, maximumDepth);
+          nodes = queryByExpressions(node, expressions, maximumDepth);
 
     if (nodes !== null) {
       this.setNodes(nodes, tokens); ///
@@ -54,9 +53,9 @@ class View extends Element {
         <SizeableDiv>
           <RowsDiv>
             <SubHeading>
-              Expression
+              Expressions
             </SubHeading>
-            <ExpressionStringInput onKeyUp={this.keyUpHandler} />
+            <ExpressionsTextarea onKeyUp={this.keyUpHandler} />
             <SubHeading>
               Maximum depth
             </SubHeading>
@@ -88,16 +87,16 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { initialContent, initialExpressionString, initialMaximumDepth } = this.constructor,
+    const { initialContent, initialExpressions, initialMaximumDepth } = this.constructor,
           content = initialContent,  ///
           maximumDepth = initialMaximumDepth,  ///
-          expressionString = initialExpressionString;  ///
+          expressions = initialExpressions;  ///
 
     this.setContent(content);
 
     this.setMaximumDepth(maximumDepth);
 
-    this.setExpressionString(expressionString);
+    this.setExpressions(expressions);
 
     this.keyUpHandler();  ///
   }
@@ -107,7 +106,13 @@ class View extends Element {
 }
 `;
 
-  static initialExpressionString = "/*//@special[2...4]";
+  static initialExpressions = [
+    "//term",
+    "//ruleSet",
+    "//selectors",
+    "//propertyName",
+    "//@identifier"
+  ];
 
   static initialMaximumDepth = 5;
 
