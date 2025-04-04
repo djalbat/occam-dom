@@ -157,6 +157,19 @@ export default class Node {
     return childNodes;
   }
 
+  static fromNothing(Class) {
+    if (Class === undefined) {
+      Class = Node; ///
+    }
+
+    const outerNode = null,
+          parentNode = null,
+          childNodes = [],
+          node = new Class(outerNode, parentNode, childNodes);
+
+    return node;
+  }
+
   static fromOuterNode(Class, outerNode) {
     if (outerNode === undefined) {
       outerNode = Class;  ///

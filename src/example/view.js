@@ -3,28 +3,28 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { nodeUtilities } from "../index" ///
 import { CSSLexer, CSSParser } from "with-style";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
 import SubHeading from "./view/subHeading";
 import SizeableDiv from "./view/div/sizeable";
-import NodesTextarea from "./view/textarea/nodes";
 import ContentTextarea from "./view/textarea/content";
 import MaximumDepthInput from "./view/input/maximumDepth";
-import ParseTreeTextarea from "./view/textarea/parseTree";
+import OuterNodesTextarea from "./view/textarea/outerNodes";
 import ExpressionsTextarea from "./view/textarea/expressions";
+import OuterParseTreeTextarea from "./view/textarea/parseTree/outer";
+import InnerParseTreeTextarea from "./view/textarea/parseTree/inner";
 
 import { queryByExpressions } from "./utilities/query";
+
+const { orderNodes: orderOuterNodes, topmostNodeFromOuterNodes: topmostInnerNodeFromOuterNodes } = nodeUtilities;
 
 const cssLexer = CSSLexer.fromNothing(),
       cssParser = CSSParser.fromNothing();
 
 class View extends Element {
   keyUpHandler = (event, element) => {
-    this.clearNodes();
-
-    this.clearParseTree();
-
     const content = this.getContent(),
           tokens = cssLexer.tokenise(content),
           node = cssParser.parse(tokens);
@@ -33,17 +33,24 @@ class View extends Element {
       return;
     }
 
-    const abridged = true,
-          parseTree = node.asParseTree(tokens, abridged),
+    const outerNode = node, ///
           expressions = this.getExpressions(),
           maximumDepth = this.getMaximumDepth(),
-          nodes = queryByExpressions(node, expressions, maximumDepth);
+          outerNodes = queryByExpressions(outerNode, expressions, maximumDepth);
 
-    if (nodes !== null) {
-      this.setNodes(nodes, tokens); ///
+    orderOuterNodes(outerNodes);
 
-      this.setParseTree(parseTree);
-    }
+    const topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
+          innerNode = topmostInnerNode; ///
+
+    const outerParseTree = outerNode.asParseTree(tokens),
+          innerParseTree = innerNode.asParseTree(tokens);
+
+    this.setOuterNodes(outerNodes, tokens); ///
+
+    this.setOuterParseTree(outerParseTree);
+
+    this.setInnerParseTree(innerParseTree);
   }
 
   childElements() {
@@ -53,6 +60,10 @@ class View extends Element {
         <SizeableDiv>
           <RowsDiv>
             <SubHeading>
+              Content
+            </SubHeading>
+            <ContentTextarea onKeyUp={this.keyUpHandler} />
+            <SubHeading>
               Expressions
             </SubHeading>
             <ExpressionsTextarea onKeyUp={this.keyUpHandler} />
@@ -60,23 +71,23 @@ class View extends Element {
               Maximum depth
             </SubHeading>
             <MaximumDepthInput onKeyUp={this.keyUpHandler} />
+            <SubHeading>
+              Outer nodes
+            </SubHeading>
+            <OuterNodesTextarea/>
           </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />
         <ColumnDiv>
           <RowsDiv>
             <SubHeading>
-              Content
+              Outer parse tree
             </SubHeading>
-            <ContentTextarea onKeyUp={this.keyUpHandler} />
+            <OuterParseTreeTextarea/>
             <SubHeading>
-              Parse tree
+              Inner parse tree
             </SubHeading>
-            <ParseTreeTextarea />
-            <SubHeading>
-              Nodes
-            </SubHeading>
-            <NodesTextarea />
+            <InnerParseTreeTextarea/>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>

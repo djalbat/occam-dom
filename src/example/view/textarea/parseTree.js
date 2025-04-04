@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import Textarea from "../textarea";
 
-import { EMPTY_STRING } from "../../constants";
-
 class ParseTreeTextarea extends Textarea {
   setParseTree(parseTree) {
     parseTree.shiftLine();  //
@@ -14,22 +12,6 @@ class ParseTreeTextarea extends Textarea {
           value = parseTreeString;  ///
 
     this.setValue(value);
-  }
-
-  clearParseTree(parseTree) {
-    const value = EMPTY_STRING;
-
-    this.setValue(value);
-  }
-
-  parentContext() {
-    const setParseTree = this.setParseTree.bind(this), ///
-          clearParseTree = this.clearParseTree.bind(this); ///
-
-    return ({
-      setParseTree,
-      clearParseTree
-    });
   }
 
   static defaultProperties = {

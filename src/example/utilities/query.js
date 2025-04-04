@@ -1,11 +1,9 @@
 "use strict";
 
-import { nodeUtilities } from "../../index" ///
 import { arrayUtilities } from "necessary";
 import { queryUtilities } from "occam-query";
 
 const { push } = arrayUtilities,
-      { isLessThan } = nodeUtilities,
       { queryByExpressionString } = queryUtilities;
 
 export function queryByExpressions(node, expressions, maximumDepth) {
@@ -17,15 +15,6 @@ export function queryByExpressions(node, expressions, maximumDepth) {
 
     return nodes;
   }, []);
-
-  nodes.sort((nodeA, nodeB) => {
-    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
-          result = nodeALessThanNodeB ?
-                    -1 :
-                      +1;
-
-    return result;
-  });
 
   return nodes;
 }

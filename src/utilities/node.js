@@ -1,6 +1,61 @@
 "use strict";
 
-export function isLessThan(nodeA, nodeB) {
+import Node from "../node";
+
+export function orderNodes(nodes) {
+  nodes.sort((nodeA, nodeB) => {
+    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
+          result = nodeALessThanNodeB ?
+                    -1 :
+                      +1;
+
+    return result;
+  });
+}
+
+export function topmostNodeFromOuterNodes(Class, outerNodes) {
+  if (outerNodes === undefined) {
+    outerNodes = Class; ///
+
+    Class = Node;  ///
+  }
+
+  const topmostNode = Node.fromNothing(),
+        outerNodeToNodeMap = new WeakMap();
+
+  outerNodes.forEach((outerNode) => {
+    const ancestorNodes = outerNode.getAncestorNodes();
+
+    let parentNode = topmostNode; ///
+
+    ancestorNodes.some((ancestorNode) => {
+      const outerNode = ancestorNode, ///
+            node = outerNodeToNodeMap.get(outerNode) || null;
+
+      if (node !== null) {
+        parentNode = node;  ///
+
+        return true;
+      }
+    });
+
+    const node = Class.fromOuterNode(outerNode),
+          childNode = node;  ///
+
+    parentNode.addChildNode(childNode);
+
+    outerNodeToNodeMap.set(outerNode, node);
+  });
+
+  return topmostNode;
+}
+
+export default {
+  orderNodes,
+  topmostNodeFromOuterNodes
+};
+
+function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
   const ancestorNodesA = ancestorNodesFromNode(nodeA),
@@ -34,10 +89,6 @@ export function isLessThan(nodeA, nodeB) {
 
   return lessThan;
 }
-
-export default {
-  isLessThan
-};
 
 function ancestorNodesFromNode(node) {
   const ancestorNodes = node.getAncestorNodes();
