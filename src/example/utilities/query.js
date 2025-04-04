@@ -6,10 +6,10 @@ import { queryUtilities } from "occam-query";
 const { push } = arrayUtilities,
       { queryByExpressionString } = queryUtilities;
 
-export function queryByExpressions(node, expressions, maximumDepth) {
+export function queryByExpressions(node, expressions) {
   const nodes = expressions.reduce((nodes, expression) => {
     const expressionString = expression,  ///
-          expressionNodes = queryByExpressionString(node, expressionString, maximumDepth);
+          expressionNodes = queryByExpressionString(node, expressionString);
 
     push(nodes, expressionNodes);
 

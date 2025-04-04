@@ -35,6 +35,13 @@ export default class Node {
     this.childNodes = childNodes;
   }
 
+  getMultiplicity() {
+    const childNodesLength = this.childNodes.length,
+        multiplicity = childNodesLength;  ///
+
+    return multiplicity;
+  }
+
   mapChildNode(callback) { return this.childNodes.map(callback); }
 
   someChildNode(callback) { return this.childNodes.some(callback); }

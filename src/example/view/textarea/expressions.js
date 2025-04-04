@@ -1,10 +1,12 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import Textarea from "../textarea";
 
 import { SPACE } from "../../constants";
 
-export default class ExpressionsTextarea extends Textarea {
+class ExpressionsTextarea extends Textarea {
   getExpressions() {
     const value = this.getValue(),
           expressionString = value, ///
@@ -37,3 +39,9 @@ export default class ExpressionsTextarea extends Textarea {
     spellCheck: "false"
   };
 }
+
+export default withStyle(ExpressionsTextarea)`
+  
+  height: 18rem;
+  
+`;

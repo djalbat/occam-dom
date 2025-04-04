@@ -10,8 +10,6 @@ import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout
 import SubHeading from "./view/subHeading";
 import SizeableDiv from "./view/div/sizeable";
 import ContentTextarea from "./view/textarea/content";
-import MaximumDepthInput from "./view/input/maximumDepth";
-import OuterNodesTextarea from "./view/textarea/outerNodes";
 import ExpressionsTextarea from "./view/textarea/expressions";
 import OuterParseTreeTextarea from "./view/textarea/parseTree/outer";
 import InnerParseTreeTextarea from "./view/textarea/parseTree/inner";
@@ -35,14 +33,11 @@ class View extends Element {
 
     const outerNode = node, ///
           expressions = this.getExpressions(),
-          maximumDepth = this.getMaximumDepth(),
-          outerNodes = queryByExpressions(outerNode, expressions, maximumDepth),
+          outerNodes = queryByExpressions(outerNode, expressions),
           topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
           innerNode = topmostInnerNode, ///
           outerParseTree = outerNode.asParseTree(tokens),
           innerParseTree = innerNode.asParseTree();
-
-    this.setOuterNodes(outerNodes, tokens); ///
 
     this.setOuterParseTree(outerParseTree);
 
@@ -63,14 +58,6 @@ class View extends Element {
               Expressions
             </SubHeading>
             <ExpressionsTextarea onKeyUp={this.keyUpHandler} />
-            <SubHeading>
-              Maximum depth
-            </SubHeading>
-            <MaximumDepthInput onKeyUp={this.keyUpHandler} />
-            <SubHeading>
-              Outer nodes
-            </SubHeading>
-            <OuterNodesTextarea/>
           </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />
@@ -94,14 +81,11 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { initialContent, initialExpressions, initialMaximumDepth } = this.constructor,
+    const { initialContent, initialExpressions } = this.constructor,
           content = initialContent,  ///
-          maximumDepth = initialMaximumDepth,  ///
           expressions = initialExpressions;  ///
 
     this.setContent(content);
-
-    this.setMaximumDepth(maximumDepth);
 
     this.setExpressions(expressions);
 
@@ -117,11 +101,10 @@ class View extends Element {
     "//term",
     "//ruleSet",
     "//selectors",
-    "//propertyName",
+    "//declaration",
+    "//propertyValue",
     "//@identifier"
   ];
-
-  static initialMaximumDepth = 5;
 
   static tagName = "div";
 
