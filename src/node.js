@@ -1,5 +1,9 @@
 "use strict";
 
+import NodeParseTree from "./parseTree/node";
+
+import { EMPTY_STRING } from "./constants";
+
 export default class Node {
   constructor(outerNode, parentNode, childNodes) {
     this.outerNode = outerNode;
@@ -157,9 +161,32 @@ export default class Node {
     return childNodes;
   }
 
-  asParseTree(tokens) {
+  asString() {
+    let string = EMPTY_STRING;
+
+    if (this.outerNode !== null) {
+      const nodeTerminalNode = this.outerNode.isTerminalNode();
+
+      if (nodeTerminalNode) {
+        const terminalNode = this.outerNode,
+              type = terminalNode.getType(),
+              content = terminalNode.getContent();
+
+        string = `"${content}" [${type}]`;
+      } else {
+        const nonTerminalNode = this.outerNode,
+              ruleName = nonTerminalNode.getRuleName();
+
+        string = ruleName;  ///
+      }
+    }
+
+    return string;
+  }
+
+  asParseTree() {
     const node = this,  ///
-          nodeParseTree = NodeParseTree.fromNodeAndTokens(node, tokens),
+          nodeParseTree = NodeParseTree.fromNode(node),
           parseTree = nodeParseTree;  ///
 
     return parseTree;

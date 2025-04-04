@@ -1,26 +1,26 @@
 "use strict";
 
-import RuleNameParseTree from "./ruleName";
+import StringParseTree from "./string";
 import ChildNodesParseTree from "./childNodes";
 import VerticalBranchParseTree from "./verticalBranch";
 
-export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
-  static fromNonTerminalNodeAndTokens(nonTerminalNode, tokens) {
-    let nonTerminalNodeParseTree;
+export default class NodeParseTree extends VerticalBranchParseTree {
+  static fromNode(node) {
+    let nodeParseTree;
 
-    const childNodes = nonTerminalNode.getChildNodes(),
-          ruleNameParseTree = RuleNameParseTree.fromNonTerminalNodeAndTokens(nonTerminalNode, tokens),
-          childNodesParseTree = ChildNodesParseTree.fromChildNodesAndTokens(childNodes, tokens);
+    const childNodes = node.getChildNodes(),
+          ruleNameParseTree = StringParseTree.fromNode(node),
+          childNodesParseTree = ChildNodesParseTree.fromChildNodes(childNodes);
 
     if (childNodesParseTree === null) {
       const ruleNameParseTreeDepth = ruleNameParseTree.getDepth(),
             ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition(),
-            nonTerminalNodeParseTreeDepth = ruleNameParseTreeDepth, ///
-            verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition; ///
+            verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition, ///
+            depth = ruleNameParseTreeDepth; ///
 
-      nonTerminalNodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NonTerminalNodeParseTree, nonTerminalNodeParseTreeDepth, verticalBranchPosition);
+      nodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NodeParseTree, depth, verticalBranchPosition);
 
-      nonTerminalNodeParseTree.appendToRight(ruleNameParseTree);
+      nodeParseTree.appendToRight(ruleNameParseTree);
     } else {
       let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
 
@@ -62,16 +62,16 @@ export default class NonTerminalNodeParseTree extends VerticalBranchParseTree {
       ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
 
       const ruleNameParseTreeDepth = ruleNameParseTree.getDepth(),
-            nonTerminalNodeParseTreeDepth = ruleNameParseTreeDepth, ///
-            verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition; ///
+            verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition, ///
+            depth = ruleNameParseTreeDepth; ///
 
-      nonTerminalNodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NonTerminalNodeParseTree, nonTerminalNodeParseTreeDepth, verticalBranchPosition);
+      nodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NodeParseTree, depth, verticalBranchPosition);
 
-      nonTerminalNodeParseTree.appendToRight(ruleNameParseTree);
+      nodeParseTree.appendToRight(ruleNameParseTree);
 
-      nonTerminalNodeParseTree.appendToBottom(childNodesParseTree);
+      nodeParseTree.appendToBottom(childNodesParseTree);
     }
 
-    return nonTerminalNodeParseTree;
+    return nodeParseTree;
   }
 }

@@ -8,14 +8,14 @@ import HorizontalBranchParseTree from "./horizontalBranch";
 const { first } = arrayUtilities;
 
 export default class ChildNodesParseTree extends VerticalBranchParseTree {
-  static fromChildNodesAndTokens(childNodes, tokens) {
+  static fromChildNodes(childNodes) {
     let childNodesParseTree = null;
 
     const childNodesLength = childNodes.length;
 
     if (childNodesLength > 0) {
       const childNodeParseTrees = childNodes.reduce((childNodeParseTrees, childNode) => {
-              const childNodeParseTree = childNode.asParseTree(tokens);
+              const childNodeParseTree = childNode.asParseTree();
 
               childNodeParseTrees.push(childNodeParseTree);
 
@@ -73,9 +73,10 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
         horizontalBranchParseTree.addLeftMargin(leftMarginWidth);
         horizontalBranchParseTree.addRightMargin(rightMarginWidth);
 
-        const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition();
+        const verticalBranchPosition = verticalBranchParseTree.getVerticalBranchPosition(),
+              depth = childNodeParseTreesDepth; ///
 
-        childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, childNodeParseTreesDepth, verticalBranchPosition);
+        childNodesParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(ChildNodesParseTree, depth, verticalBranchPosition);
 
         childNodeParseTrees.forEach((childNodeParseTree, index) => {
           const childNodeParseTreeDepth = childNodeParseTree.getDepth(),
@@ -97,6 +98,7 @@ export default class ChildNodesParseTree extends VerticalBranchParseTree {
         });
 
         childNodesParseTree.appendToTop(horizontalBranchParseTree);
+
         childNodesParseTree.appendToTop(verticalBranchParseTree);
       }
     }

@@ -40,7 +40,7 @@ class View extends Element {
           topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
           innerNode = topmostInnerNode, ///
           outerParseTree = outerNode.asParseTree(tokens),
-          innerParseTree = innerNode.asParseTree(tokens);
+          innerParseTree = innerNode.asParseTree();
 
     this.setOuterNodes(outerNodes, tokens); ///
 
