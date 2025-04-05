@@ -2,18 +2,20 @@
 
 import Node from "../node";
 
-export function topmostNodeFromOuterNodes(Class, outerNodes) {
+export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
   if (outerNodes === undefined) {
-    outerNodes = Class; ///
+    outerNodes = ClassFromOuterNode; ///
 
-    Class = Node;  ///
+    ClassFromOuterNode = (outerNode) => Node;  ///
   }
 
   const nodes = outerNodes; ///
 
   orderNodes(nodes);
 
-  const topmostNode = Class.fromNothing(),
+  const outerNode = null,
+        Class = ClassFromOuterNode(outerNode),
+        topmostNode = Class.fromNothing(),
         outerNodeToNodeMap = new WeakMap();
 
   outerNodes.forEach((outerNode) => {
@@ -30,7 +32,8 @@ export function topmostNodeFromOuterNodes(Class, outerNodes) {
       }
     });
 
-    const node = Class.fromOuterNode(outerNode),
+    const Class = ClassFromOuterNode(outerNode),
+          node = Class.fromOuterNode(outerNode),
           childNode = node,  ///
           multiplicity = parentNode.getMultiplicity(),
           startIndex = multiplicity;  ///
