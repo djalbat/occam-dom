@@ -152,6 +152,37 @@ export default class Node {
     this.spliceChildNodes(startIndex, deleteCount, replacementChildNodes);
   }
 
+  appendChildNode(appendedChildNode) {
+    const appendedChildNodes = [
+      appendedChildNode
+    ];
+
+    this.appendChildNodes(appendedChildNodes);
+  }
+
+  appendChildNodes(appendedChildNodes) {
+    const addedChildNodes = appendedChildNodes, ///
+          multiplicity = this.getMultiplicity(),
+          startIndex = multiplicity;  ///
+
+    this.addChildNodes(addedChildNodes, startIndex);
+  }
+
+  prependChildNode(prependedChildNode) {
+    const prependedChildNodes = [
+      prependedChildNode
+    ];
+
+    this.prependChildNodes(prependedChildNodes);
+  }
+
+  prependChildNodes(prependedChildNodes) {
+    const addedChildNodes = prependedChildNodes,  ///
+          startIndex = 0;
+
+    this.addChildNodes(addedChildNodes, startIndex);
+  }
+
   spliceChildNodes(startIndex, deleteCount, addedChildNodes = []) {
     const removedChildNodes = this.childNodes.splice(startIndex, deleteCount, ...addedChildNodes);
 

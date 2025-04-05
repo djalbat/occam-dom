@@ -34,11 +34,9 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 
     const Class = ClassFromOuterNode(outerNode),
           node = Class.fromOuterNode(outerNode),
-          childNode = node,  ///
-          multiplicity = parentNode.getMultiplicity(),
-          startIndex = multiplicity;  ///
+          appendedChildNode = node; ///
 
-    parentNode.addChildNode(childNode, startIndex);
+    parentNode.appendChildNode(appendedChildNode);
 
     outerNodeToNodeMap.set(outerNode, node);
   });
