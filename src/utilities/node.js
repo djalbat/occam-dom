@@ -17,11 +17,9 @@ export function topmostNodeFromOuterNodes(Class, outerNodes) {
         outerNodeToNodeMap = new WeakMap();
 
   outerNodes.forEach((outerNode) => {
-    const ancestorNodes = outerNode.getAncestorNodes();
-
     let parentNode = topmostNode; ///
 
-    ancestorNodes.some((ancestorNode) => {
+    someAncestorNode(outerNode, (ancestorNode) => {
       const outerNode = ancestorNode, ///
             node = outerNodeToNodeMap.get(outerNode) || null;
 
@@ -93,6 +91,28 @@ function isLessThan(nodeA, nodeB) {
   }
 
   return lessThan;
+}
+
+function someAncestorNode(node, callback) {
+  let result = false;
+
+  let parentNode = node.getParentNode();
+
+  while (parentNode !== null) {
+    const ancestorNode = parentNode;  ///
+
+    result = !!callback(ancestorNode);  ///
+
+    if (result) {
+      break;
+    }
+
+    node = parentNode;  ///
+
+    parentNode = node.getParentNode();
+  }
+
+  return result;
 }
 
 function ancestorNodesFromNode(node) {
