@@ -13,7 +13,7 @@ export function topmostNodeFromOuterNodes(Class, outerNodes) {
 
   orderNodes(nodes);
 
-  const topmostNode = Node.fromNothing(),
+  const topmostNode = Class.fromNothing(),
         outerNodeToNodeMap = new WeakMap();
 
   outerNodes.forEach((outerNode) => {
