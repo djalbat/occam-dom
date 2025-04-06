@@ -78,7 +78,7 @@ export default class Node {
     return parseTree;
   }
 
-  static fromNothing(Class) {
+  static fromNothing(Class, ...remainingArguments) {
     if (Class === undefined) {
       Class = Node; ///
     }
@@ -86,12 +86,12 @@ export default class Node {
     const outerNode = null,
           parentNode = null,
           childNodes = [],
-          node = new Class(outerNode, parentNode, childNodes);
+          node = new Class(outerNode, parentNode, childNodes, ...remainingArguments);
 
     return node;
   }
 
-  static fromOuterNode(Class, outerNode) {
+  static fromOuterNode(Class, outerNode, ...remainingArguments) {
     if (outerNode === undefined) {
       outerNode = Class;  ///
 
@@ -100,7 +100,7 @@ export default class Node {
 
     const parentNode = null,
           childNodes = [],
-          node = new Class(outerNode, parentNode, childNodes);
+          node = new Class(outerNode, parentNode, childNodes, ...remainingArguments);
 
     return node;
   }
