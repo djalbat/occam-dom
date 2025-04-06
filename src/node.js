@@ -1,5 +1,7 @@
 "use strict";
 
+import { nodeMixins } from "occam-parsers";
+
 import NodeParseTree from "./parseTree/node";
 
 import { EMPTY_STRING } from "./constants";
@@ -103,3 +105,5 @@ export default class Node {
     return node;
   }
 }
+
+Object.assign(Node.prototype, nodeMixins);
