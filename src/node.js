@@ -32,171 +32,17 @@ export default class Node {
   }
 
   setChildNodes(childNodes) {
-    this.childNodes = childNodes;
-  }
-
-  getMultiplicity() {
-    const childNodesLength = this.childNodes.length,
-        multiplicity = childNodesLength;  ///
-
-    return multiplicity;
-  }
-
-  mapChildNode(callback) { return this.childNodes.map(callback); }
-
-  someChildNode(callback) { return this.childNodes.some(callback); }
-
-  findChildNode(callback) { return this.childNodes.find(callback); }
-
-  everyChildNode(callback) { return this.childNodes.every(callback); }
-
-  filterChildNode(callback) { return this.childNodes.filter(callback); }
-
-  reduceChildNode(callback, initialValue) { return this.childNodes.reduce(callback, initialValue); }
-
-  forEachChildNode(callback) { this.childNodes.forEach(callback); }
-
-  setChildNodesParentNode(childNodes) {
-    if (childNodes === undefined) {
-      childNodes = [
-        ...this.childNodes
-      ];
-    }
-
-    const parentNode = this;
-
-    childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
-  }
-
-  resetChildNodesParentNode(childNodes) {
-    if (childNodes === undefined) {
-      childNodes = [
-        ...this.childNodes
-      ];
-    }
-
-    const parentNode = null;
-
-    childNodes.forEach((childNode) => {
-      childNode.setParentNode(parentNode);
-    });
-  }
-
-  addChildNode(addedChildNode, startIndex) {
-    const addedChildNodes = [
-      addedChildNode
-    ];
-
-    this.addChildNodes(addedChildNodes, startIndex);
-  }
-
-  addChildNodes(addedChildNodes, startIndex) {
-    const deleteCount = 0;
+    const startIndex = 0,
+          deleteCount = Infinity,
+          addedChildNodes = childNodes;  ///
 
     this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
-  removeChildNode(removedChildNode) {
-    let removedChildNodes;
+  destroy() {
+    this.outerNode = null;
 
-    removedChildNodes = [
-      removedChildNode
-    ];
-
-    removedChildNodes = this.removeChildNodes(removedChildNodes);
-
-    return removedChildNodes;
-  }
-
-  removeChildNodes(removedChildNodes) {
-    if (removedChildNodes === undefined) {
-      removedChildNodes = [
-        ...this.childNodes
-      ];
-    }
-
-    const removedChildNodesLength = removedChildNodes.length;
-
-    if (removedChildNodesLength === 0) {
-      return;
-    }
-
-    const firstReplacedChildNode = first(removedChildNodes),
-          firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-          startIndex = firstIndex, ///
-          deleteCount = removedChildNodesLength, ///
-          addedChildNodes = [];
-
-    removedChildNodes = this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
-
-    return removedChildNodes;
-  }
-
-  replaceChildNode(replacedChildNode, replacementChildNodes) {
-    const replacedChildNodes = [
-      replacedChildNode
-    ];
-
-    this.replaceChildNodes(replacedChildNodes, replacementChildNodes);
-  }
-
-  replaceChildNodes(replacedChildNodes, replacementChildNodes) {
-    const replacedChildNodesLength = replacedChildNodes.length,
-          firstReplacedChildNode = first(replacedChildNodes),
-          firstIndex = this.childNodes.indexOf(firstReplacedChildNode),
-          startIndex = firstIndex, ///
-          deleteCount = replacedChildNodesLength; ///
-
-    this.spliceChildNodes(startIndex, deleteCount, replacementChildNodes);
-  }
-
-  appendChildNode(appendedChildNode) {
-    const appendedChildNodes = [
-      appendedChildNode
-    ];
-
-    this.appendChildNodes(appendedChildNodes);
-  }
-
-  appendChildNodes(appendedChildNodes) {
-    const addedChildNodes = appendedChildNodes, ///
-          multiplicity = this.getMultiplicity(),
-          startIndex = multiplicity;  ///
-
-    this.addChildNodes(addedChildNodes, startIndex);
-  }
-
-  prependChildNode(prependedChildNode) {
-    const prependedChildNodes = [
-      prependedChildNode
-    ];
-
-    this.prependChildNodes(prependedChildNodes);
-  }
-
-  prependChildNodes(prependedChildNodes) {
-    const addedChildNodes = prependedChildNodes,  ///
-          startIndex = 0;
-
-    this.addChildNodes(addedChildNodes, startIndex);
-  }
-
-  spliceChildNodes(startIndex, deleteCount, addedChildNodes = []) {
-    const removedChildNodes = this.childNodes.splice(startIndex, deleteCount, ...addedChildNodes);
-
-    this.resetChildNodesParentNode(removedChildNodes);
-
-    this.setChildNodesParentNode(addedChildNodes);
-
-    return removedChildNodes;
-  }
-
-  sliceChildNodes(startIndex, endIndex = Infinity) {
-    const childNodes = this.childNodes.slice(startIndex, endIndex);
-
-    return childNodes;
+    super.destroy();
   }
 
   asString() {
