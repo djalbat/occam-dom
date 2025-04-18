@@ -131,6 +131,24 @@ export function clonedTokensFromNodeAndTokens(node, tokens) {
   return clonedTokens;
 }
 
+export default {
+  appendNode,
+  prependNode,
+  removeNode,
+  removeNodes,
+  replaceNode,
+  replaceNodes,
+  addNodeAfter,
+  addNodesAfter,
+  appendTokens,
+  prependTokens,
+  removeTokens,
+  replaceTokens,
+  addTokensAfter,
+  overwriteClonedNodeTokens,
+  clonedTokensFromNodeAndTokens
+};
+
 function overwriteNodeTokens(node, clonedTokens, tokens, offset) {
   const nodeTerminalNode = node.isTerminalNode();
 
