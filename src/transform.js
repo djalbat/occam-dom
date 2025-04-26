@@ -111,12 +111,11 @@ export default class Transform {
 
   removeFrom(parentNode, context) {
     const { tokens } = context,
-          removedNode = this.node,  ///
-          removedTokens = this.tokens;  ///
+          removedNode = this.node;  ///
 
     removeNode(removedNode, parentNode);
 
-    removeTokens(removedTokens, tokens);
+    removeTokens(removedNode, tokens);
   }
 
   clone(...remainingArguments) {
