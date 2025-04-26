@@ -6,10 +6,10 @@ import { appendNode,
          removeNode,
          prependNode,
          replaceNode,
+         addNodeAfter,
          appendTokens,
          removeTokens,
          replaceTokens,
-         addNodesAfter,
          prependTokens,
          addTokensAfter,
          overwriteClonedNodeTokens,
@@ -89,12 +89,10 @@ export default class Transform {
 
   addAfter(existingNode, parentNode, context) {
     const { tokens } = context,
-          markdownNode = this.node, ///
-          removedChildNodes = markdownNode.removeChildNodes(),
-          addedTokens = this.tokens,  ///
-          addedNodes = removedChildNodes;  ///
+          addedNode = this.node, ///
+          addedTokens = this.tokens;  ///
 
-    addNodesAfter(existingNode, addedNodes, parentNode);
+    addNodeAfter(existingNode, addedNode, parentNode);
 
     addTokensAfter(existingNode, addedTokens, tokens);
   }
