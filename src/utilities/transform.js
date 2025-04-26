@@ -105,6 +105,17 @@ export function addTokensAfter(existingNode, addedTokens, tokens) {
   tokens.splice(start, deleteCount, ...addedTokens);
 }
 
+export function tokensFromNodeAndTokens(node, tokens) {
+  const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
+        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
+        start = firstSignificantTokenIndex,  ///
+        end = lastSignificantTokenIndex + 1;
+
+  tokens = tokens.slice(start, end);  ///
+
+  return tokens;
+}
+
 export function overwriteClonedNodeTokens(clonedNode, clonedTokens, tokens, offset = 0) {
   const node = clonedNode;  ///
 
@@ -112,12 +123,7 @@ export function overwriteClonedNodeTokens(clonedNode, clonedTokens, tokens, offs
 }
 
 export function clonedTokensFromNodeAndTokens(node, tokens) {
-  const firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
-        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
-        start = firstSignificantTokenIndex,  ///
-        end = lastSignificantTokenIndex + 1;
-
-  tokens = tokens.slice(start, end);  ///
+  tokens = tokensFromNodeAndTokens(node, tokens);
 
   const clonedTokens = tokens.map((token) => {  ///
     const clonedToken = token.clone();
@@ -142,6 +148,7 @@ export default {
   removeTokens,
   replaceTokens,
   addTokensAfter,
+  tokensFromNodeAndTokens,
   overwriteClonedNodeTokens,
   clonedTokensFromNodeAndTokens
 };
