@@ -74,7 +74,7 @@ export default class Transform {
 
     appendNode(appendedNode, parentNode);
 
-    appendTokens(appendedTokens, parentNode, tokens);
+    appendTokens(appendedTokens, tokens);
   }
 
   prependTo(parentNode, context) {
@@ -84,7 +84,7 @@ export default class Transform {
 
     prependNode(prependedNode, parentNode);
 
-    prependTokens(prependedTokens, parentNode, tokens);
+    prependTokens(prependedTokens, tokens);
   }
 
   addAfter(existingNode, parentNode, context) {

@@ -59,19 +59,16 @@ export function addNodesAfter(existingNode, addedNodes, parentNode) {
   parentNode.addChildNodes(addedChildNodes, startIndex);
 }
 
-export function appendTokens(appendedTokens, parentNode, tokens) {
-  const node = parentNode, ///
-        lastSignificantTokenIndex = node.getLastSignificantTokenIndex(tokens),
-        start = lastSignificantTokenIndex + 1,
+export function appendTokens(appendedTokens, tokens) {
+  const length = tokens.length,
+        start = length, ///
         deleteCount = 0;
 
   tokens.splice(start, deleteCount, ...appendedTokens);
 }
 
 export function prependTokens(prependedTokens, parentNode, tokens) {
-  const node = parentNode, ///
-        firstSignificantTokenIndex = node.getFirstSignificantTokenIndex(tokens),
-        start = firstSignificantTokenIndex,
+  const start = 0,
         deleteCount = 0;
 
   tokens.splice(start, deleteCount, ...prependedTokens);
