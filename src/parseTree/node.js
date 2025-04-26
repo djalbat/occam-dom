@@ -9,20 +9,20 @@ export default class NodeParseTree extends VerticalBranchParseTree {
     let nodeParseTree;
 
     const childNodes = node.getChildNodes(),
-          ruleNameParseTree = StringParseTree.fromNode(node),
+          stringParseTree = StringParseTree.fromNode(node),
           childNodesParseTree = ChildNodesParseTree.fromChildNodes(childNodes);
 
     if (childNodesParseTree === null) {
-      const ruleNameParseTreeDepth = ruleNameParseTree.getDepth(),
-            ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition(),
+      const ruleNameParseTreeDepth = stringParseTree.getDepth(),
+            ruleNameParseTreeVerticalBranchPosition = stringParseTree.getVerticalBranchPosition(),
             verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition, ///
             depth = ruleNameParseTreeDepth; ///
 
       nodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NodeParseTree, depth, verticalBranchPosition);
 
-      nodeParseTree.appendToRight(ruleNameParseTree);
+      nodeParseTree.appendToRight(stringParseTree);
     } else {
-      let ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
+      let ruleNameParseTreeVerticalBranchPosition = stringParseTree.getVerticalBranchPosition();
 
       const childNodesParseTreeVerticalBranchPosition = childNodesParseTree.getVerticalBranchPosition(),
             verticalBranchPositionsDifference = ruleNameParseTreeVerticalBranchPosition - childNodesParseTreeVerticalBranchPosition;
@@ -34,14 +34,14 @@ export default class NodeParseTree extends VerticalBranchParseTree {
       } else if (verticalBranchPositionsDifference < 0) {
         leftMarginWidth = -verticalBranchPositionsDifference;
 
-        ruleNameParseTree.addLeftMargin(leftMarginWidth);
+        stringParseTree.addLeftMargin(leftMarginWidth);
       } else if (verticalBranchPositionsDifference > 0) {
         leftMarginWidth = +verticalBranchPositionsDifference;
 
         childNodesParseTree.addLeftMargin(leftMarginWidth);
       }
 
-      const ruleNameParseTreeWidth = ruleNameParseTree.getWidth(),
+      const ruleNameParseTreeWidth = stringParseTree.getWidth(),
             childNodesParseTreeWidth = childNodesParseTree.getWidth(),
             widthsDifference = ruleNameParseTreeWidth - childNodesParseTreeWidth;
 
@@ -52,22 +52,22 @@ export default class NodeParseTree extends VerticalBranchParseTree {
       } else if (widthsDifference < 0) {
         rightMarginWidth = -widthsDifference;
 
-        ruleNameParseTree.addRightMargin(rightMarginWidth);
+        stringParseTree.addRightMargin(rightMarginWidth);
       } else if (widthsDifference > 0) {
         rightMarginWidth = +widthsDifference;
 
         childNodesParseTree.addRightMargin(rightMarginWidth);
       }
 
-      ruleNameParseTreeVerticalBranchPosition = ruleNameParseTree.getVerticalBranchPosition();
+      ruleNameParseTreeVerticalBranchPosition = stringParseTree.getVerticalBranchPosition();
 
-      const ruleNameParseTreeDepth = ruleNameParseTree.getDepth(),
+      const ruleNameParseTreeDepth = stringParseTree.getDepth(),
             verticalBranchPosition = ruleNameParseTreeVerticalBranchPosition, ///
             depth = ruleNameParseTreeDepth; ///
 
       nodeParseTree = VerticalBranchParseTree.fromDepthAndVerticalBranchPosition(NodeParseTree, depth, verticalBranchPosition);
 
-      nodeParseTree.appendToRight(ruleNameParseTree);
+      nodeParseTree.appendToRight(stringParseTree);
 
       nodeParseTree.appendToBottom(childNodesParseTree);
     }
