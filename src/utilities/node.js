@@ -21,7 +21,7 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
   outerNodes.forEach((outerNode) => {
     let parentNode = topmostNode; ///
 
-    someAncestorNode(outerNode, (ancestorNode) => {
+    outerNode.someAncestorNode((ancestorNode) => {
       const outerNode = ancestorNode, ///
             node = outerNodeToNodeMap.get(outerNode) || null;
 
@@ -62,22 +62,22 @@ function orderNodes(nodes) {
 function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
-  const ancestorNodesA = ancestorNodesFromNode(nodeA),
-        ancestorNodesB = ancestorNodesFromNode(nodeB),
-        ancestorNodesALength = ancestorNodesA.length,
-        ancestorNodesBLength = ancestorNodesB.length,
-        minimumAncestorNodesLength = Math.min(ancestorNodesALength, ancestorNodesBLength);
+  const nodeAAncestorNodes = nodeA.getAncestorNodes(),
+        nodeBAncestorNodes = nodeB.getAncestorNodes(),
+        nodeAAncestorNodesLength = nodeAAncestorNodes.length,
+        nodeBAncestorNodesLength = nodeBAncestorNodes.length,
+        minimumAncestorNodesLength = Math.min(nodeAAncestorNodesLength, nodeBAncestorNodesLength);
 
   for (let index = 0; index < minimumAncestorNodesLength; index++) {
-    const ancestorNodeA = ancestorNodesA[index],
-          ancestorNodeB = ancestorNodesB[index];
+    const nodeAAncestorNode = nodeAAncestorNodes[index],
+          nodeBAncestorNode = nodeBAncestorNodes[index];
 
-    if (ancestorNodeA !== ancestorNodeB) {
+    if (nodeAAncestorNode !== nodeBAncestorNode) {
       const parentIndex = index - 1,
-            ancestorNodeAParentNode = ancestorNodesA[parentIndex],
-            parentNode = ancestorNodeAParentNode, ///
-            childNodeA = ancestorNodeA, ///
-            childNodeB = ancestorNodeB, ///
+            nodeAAncestorNodeParentNode = nodeAAncestorNodes[parentIndex],
+            parentNode = nodeAAncestorNodeParentNode, ///
+            childNodeA = nodeAAncestorNode, ///
+            childNodeB = nodeBAncestorNode, ///
             indexA = parentNode.indexOfChildNode(childNodeA),
             indexB = parentNode.indexOfChildNode(childNodeB);
 
@@ -88,40 +88,8 @@ function isLessThan(nodeA, nodeB) {
   }
 
   if (lessThan === null) {
-    lessThan = (ancestorNodesALength < ancestorNodesBLength);
+    lessThan = (nodeAAncestorNodesLength < nodeBAncestorNodesLength);
   }
 
   return lessThan;
-}
-
-function someAncestorNode(node, callback) {
-  let result = false;
-
-  let parentNode = node.getParentNode();
-
-  while (parentNode !== null) {
-    const ancestorNode = parentNode;  ///
-
-    result = !!callback(ancestorNode);  ///
-
-    if (result) {
-      break;
-    }
-
-    node = parentNode;  ///
-
-    parentNode = node.getParentNode();
-  }
-
-  return result;
-}
-
-function ancestorNodesFromNode(node) {
-  const ancestorNodes = node.getAncestorNodes();
-
-  ancestorNodes.unshift(node);
-
-  ancestorNodes.reverse();
-
-  return ancestorNodes;
 }
