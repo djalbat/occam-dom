@@ -1,7 +1,7 @@
 {
   "name": "occam-dom",
   "author": "James Smith",
-  "version": "5.2.8",
+  "version": "5.2.9",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/occam-dom",
   "description": "Occam's DOM related functionality.",
@@ -10,8 +10,8 @@
     "url": "https://github.com/djalbat/occam-dom"
   },
   "dependencies": {
-    "occam-parsers": "^23.0.120",
-    "occam-query": "^4.1.77"
+    "occam-parsers": "^23.0.123",
+    "occam-query": "^4.1.79"
   },
   "devDependencies": {
     "@swc/core": "^1.5.6",
