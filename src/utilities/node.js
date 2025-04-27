@@ -62,8 +62,8 @@ function orderNodes(nodes) {
 function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
-  const nodeAAncestorNodes = nodeA.getAncestorNodes(),
-        nodeBAncestorNodes = nodeB.getAncestorNodes(),
+  const nodeAAncestorNodes = ancestorNodesFromNode(nodeA),
+        nodeBAncestorNodes = ancestorNodesFromNode(nodeB),
         nodeAAncestorNodesLength = nodeAAncestorNodes.length,
         nodeBAncestorNodesLength = nodeBAncestorNodes.length,
         minimumAncestorNodesLength = Math.min(nodeAAncestorNodesLength, nodeBAncestorNodesLength);
@@ -92,4 +92,14 @@ function isLessThan(nodeA, nodeB) {
   }
 
   return lessThan;
+}
+
+function ancestorNodesFromNode(node) {
+  const ancestorNodes = node.getAncestorNodes();
+
+  ancestorNodes.unshift(node);
+
+  ancestorNodes.reverse();
+
+  return ancestorNodes;
 }
