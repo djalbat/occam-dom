@@ -104,6 +104,20 @@ export default class Node {
 
     return node;
   }
+
+  static fromChildNodes(Class, childNodes, ...remainingArguments) {
+    if (childNodes === undefined) {
+      childNodes = Class;  ///
+
+      Class = Node; ///
+    }
+
+    const outerNode = null,
+          parentNode = null,
+          node = new Class(outerNode, parentNode, childNodes, ...remainingArguments);
+
+    return node;
+  }
 }
 
 Object.assign(Node.prototype, nodeMixins);
