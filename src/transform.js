@@ -87,9 +87,10 @@ export default class Transform {
     prependTokens(prependedTokens, tokens);
   }
 
-  addAfter(existingNode, parentNode, context) {
+  addAfter(existingNode, context) {
     const { tokens } = context,
           addedNode = this.node, ///
+          parentNode = existingNode.getParentNode(),
           addedTokens = this.tokens;  ///
 
     addNodeAfter(existingNode, addedNode, parentNode);
@@ -97,8 +98,9 @@ export default class Transform {
     addTokensAfter(existingNode, addedTokens, tokens);
   }
 
-  replace(replacedNode, parentNode, context) {
+  replace(replacedNode, context) {
     const { tokens } = context,
+          parentNode = replacedNode.getParentNode(),
           replacementNode = this.node, ///
           replacementTokens = this.tokens; ///
 
@@ -107,8 +109,9 @@ export default class Transform {
     replaceTokens(replacementTokens, replacedNode, tokens);
   }
 
-  removeFrom(parentNode, context) {
+  remove(context) {
     const { tokens } = context,
+          parentNode = this.node.getParentNode(),
           removedNode = this.node;  ///
 
     removeNode(removedNode, parentNode);
