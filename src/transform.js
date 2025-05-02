@@ -33,40 +33,6 @@ export default class Transform {
     return this.tokens;
   }
 
-  contract(Class, descendentNode, ...remainingArguments) {
-    if (descendentNode === undefined) {
-      descendentNode = Class; ///
-
-      Class = Transform;  ///
-    }
-
-    const node = descendentNode,  ///
-          tokens = this.tokens, ///
-          context = { ///
-            tokens
-          },
-          transform = Class.fromNode(node, ...remainingArguments, context);
-
-    return transform;
-  }
-
-  expand(Class, ascendantNode, ...remainingArguments) {
-    if (ascendantNode === undefined) {
-      ascendantNode = Class;
-
-      Class = Transform;  ///
-    }
-
-    const node = ascendantNode, ///
-          tokens = this.tokens, ///
-          context = {
-            tokens
-          },
-          transform = Class.fromNode(node, ...remainingArguments, context);
-
-    return transform;
-  }
-
   appendTo(parentNode, context) {
     const { tokens } = context,
           appendedNode = this.node,  ///
