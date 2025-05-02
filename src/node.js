@@ -4,6 +4,8 @@ import { nodeMixins } from "occam-parsers";
 
 import NodeParseTree from "./parseTree/node";
 
+import { EMPTY_STRING } from "./constants";
+
 export default class Node {
   constructor(outerNode, parentNode, childNodes) {
     this.outerNode = outerNode;
@@ -46,7 +48,7 @@ export default class Node {
   }
 
   asString() {
-    let string = null;
+    let string = EMPTY_STRING;
 
     if (this.outerNode !== null) {
       const nodeTerminalNode = this.outerNode.isTerminalNode();
