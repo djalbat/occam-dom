@@ -116,6 +116,8 @@ export default class Node {
           parentNode = null,
           node = new Class(outerNode, parentNode, childNodes, ...remainingArguments);
 
+    node.setChildNodesParentNode();
+
     return node;
   }
 }
