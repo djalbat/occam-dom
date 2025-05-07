@@ -6,23 +6,23 @@ export function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
   const nodeAAncestorNodes = ancestorNodesFromNode(nodeA),
-    nodeBAncestorNodes = ancestorNodesFromNode(nodeB),
-    nodeAAncestorNodesLength = nodeAAncestorNodes.length,
-    nodeBAncestorNodesLength = nodeBAncestorNodes.length,
-    minimumAncestorNodesLength = Math.min(nodeAAncestorNodesLength, nodeBAncestorNodesLength);
+        nodeBAncestorNodes = ancestorNodesFromNode(nodeB),
+        nodeAAncestorNodesLength = nodeAAncestorNodes.length,
+        nodeBAncestorNodesLength = nodeBAncestorNodes.length,
+        minimumAncestorNodesLength = Math.min(nodeAAncestorNodesLength, nodeBAncestorNodesLength);
 
   for (let index = 0; index < minimumAncestorNodesLength; index++) {
     const nodeAAncestorNode = nodeAAncestorNodes[index],
-      nodeBAncestorNode = nodeBAncestorNodes[index];
+          nodeBAncestorNode = nodeBAncestorNodes[index];
 
     if (nodeAAncestorNode !== nodeBAncestorNode) {
       const parentIndex = index - 1,
-        nodeAAncestorNodeParentNode = nodeAAncestorNodes[parentIndex],
-        parentNode = nodeAAncestorNodeParentNode, ///
-        childNodeA = nodeAAncestorNode, ///
-        childNodeB = nodeBAncestorNode, ///
-        indexA = parentNode.indexOfChildNode(childNodeA),
-        indexB = parentNode.indexOfChildNode(childNodeB);
+            nodeAAncestorNodeParentNode = nodeAAncestorNodes[parentIndex],
+            parentNode = nodeAAncestorNodeParentNode, ///
+            childNodeA = nodeAAncestorNode, ///
+            childNodeB = nodeBAncestorNode, ///
+            indexA = parentNode.indexOfChildNode(childNodeA),
+            indexB = parentNode.indexOfChildNode(childNodeB);
 
       lessThan = (indexA < indexB);
 
