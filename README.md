@@ -93,7 +93,7 @@ One last thing to bear in mind is that this package is included by way of a rela
 
 ## Usage
 
-Suppose that a Markdown document is being parsed by way of [Highmark](https://github.com/djalbat/highmark-markdown)'s lexer and parser:
+Suppose that a Markdown document is being processed by way of [Highmark](https://github.com/djalbat/highmark-markdown)'s lexer and parser:
 
 ```
 const markdownLexer = MarkdownLexer.fromNothing(),
@@ -108,7 +108,7 @@ const content = markdown, ///
 ...
 ```
 
-A number of arrays of nodes can be created from the document's "outer" node by applying queries:
+A number of arrays of nodes can be created from the "outer" document node using queries:
 
 ```
 export function nodesFromNodeAndQueries(node, queries, nodes = []) {
@@ -161,7 +161,7 @@ function ClassFromOuterNode(outerNode) {
 const topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNode);
 ```
 
-Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every outer node type that the algorithm comes across. 
+Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every type of outer node that the algorithm may come across. 
 
 ## Building
 
