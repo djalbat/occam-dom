@@ -13,9 +13,9 @@
 
 ## Introduction
 
-Specifically, "outer" token arrays and node trees resulting from the user of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively, can be refined into "inner" token arrays and node trees for convenience. 
+Specifically, "outer" token arrays and parse trees resulting from the user of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively, can be refined into "inner" token arrays and parse trees for convenience. 
 
-An example is helpful. Consider the following outer node tree that results from parsing some simple Markdown.
+An example is helpful. Consider the following outer parse tree that results from parsing some simple Markdown.
 
 ```
                                                   |                                                   
@@ -38,7 +38,7 @@ An example is helpful. Consider the following outer node tree that results from 
                 "Heading"[word] [0]                             "Paragraph"[word] [2] "."[special] [2]
 ```
 
-This contains far more information than is needed to render the markdown as HTML. The following inner node tree will in fact suffice:
+This contains far more information than is needed to render the markdown as HTML. The following inner parse tree will in fact suffice:
 
 ```
                                                 |                 
@@ -55,7 +55,7 @@ This contains far more information than is needed to render the markdown as HTML
                                                plainText plainText
 ```
 
-Locating the outer nodes that contribute to this inner node tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However, the arrays of nodes that result are not in the above form. This package provides the means to form such node trees.
+Locating the outer nodes that contribute to this inner parse tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However, the arrays of nodes that result are not in the above form. This package provides the means to form such parse trees.
 
 ## Installation
 
@@ -122,7 +122,46 @@ export function nodesFromNodeAndQueries(node, queries, nodes = []) {
 }
 ```
 
-These can then be formed into an ""
+These can then be formed into an "inner" node tree using the `topmostNodeFromOuterNodes()` function:
+
+```
+import { nodeUtilities } from "occam-dom";
+
+const { topmostNodeFromOuterNodes } = nodeUtilities;
+
+...
+
+const outerNodes = nodes,   ///
+      topmostNode = topmostNodeFromOuterNodes(outerNode);
+      
+...
+```
+
+You can also pass an optional callback argument to this function that maps outer nodes to inner node Classes:
+
+```
+import htmlNodeMap from "../map/node/html";
+import TopmostHTMLNOde from "../node/html/topmost";
+
+function ClassFromOuterNode(outerNode) {
+  let Class;
+
+  if (outerNode === null) {
+    Class = TopmostHTMLNode;  ///
+  } else {
+    const nonTerminalNode = outerNode,  ///
+          ruleName = nonTerminalNode.getRuleName();
+
+    Class = htmlNodeMap[ruleName] || HTMLNode;
+  }
+
+  return Class;
+}
+
+const topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNode);
+```
+
+Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every outer node type that the algorithm comes across. 
 
 ## Building
 
