@@ -2,6 +2,50 @@
 
 [Occam](https://github.com/djalbat/occam)'s DOM related functionality.
 
+Specifically, "outer" token arrays and node trees resulting from the user of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively, can be refined into "inner" token arrays and node trees for convenience. 
+
+An example is helpful. Consider the following outer node tree that results from parsing some simple Markdown.
+
+```
+                                                  |                                                   
+                                           markdown [0-2]                                             
+                                                  |                                                   
+                                           division [0-2]                                             
+                                                  |                                                   
+                ---------------------------------------------------------------------                 
+                |                                |                                  |                 
+        subDivision.. [0]               verticalSpace [0-1]                 subDivision.. [2]         
+                |                                |                                  |                 
+       primaryHeading [0]                 ---------------                     paragraph [2]           
+                |                         |             |                           |                 
+       -------------------          <END_OF_LINE> <END_OF_LINE>                 line [2]              
+       |                 |                                                          |                 
+"#"[hashes] [0]      line [0]                                             ---------------------       
+                         |                                                |                   |       
+                  plainText. [0]                                   plainText. [2]      plainText. [2] 
+                         |                                                |                   |       
+                "Heading"[word] [0]                             "Paragraph"[word] [2] "."[special] [2]
+```
+
+This contains far more information than is needed to render the markdown as HTML. The following inner node tree will in fact suffice:
+
+```
+                |                 
+            division              
+                |                 
+       ------------------         
+       |                |         
+primaryHeading      paragraph     
+       |                |         
+     line             line        
+       |                |         
+   plainText       -----------    
+                   |         |    
+               plainText plainText
+```
+
+Locating the outer nodes that contribute to this inner node tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However the arrays of nodes that result are not in the above form. This package provides the means to form such node trees by way of a simple utility function.
+
 ### Contents
 
 - [Introduction](#introduction)
