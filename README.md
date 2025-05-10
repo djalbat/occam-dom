@@ -2,6 +2,17 @@
 
 [Occam](https://github.com/djalbat/occam)'s DOM related functionality.
 
+### Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Example](#example)
+- [Usage](#usage)
+- [Building](#building)
+- [Contact](#contact)
+
+## Introduction
+
 Specifically, "outer" token arrays and node trees resulting from the user of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively, can be refined into "inner" token arrays and node trees for convenience. 
 
 An example is helpful. Consider the following outer node tree that results from parsing some simple Markdown.
@@ -30,34 +41,21 @@ An example is helpful. Consider the following outer node tree that results from 
 This contains far more information than is needed to render the markdown as HTML. The following inner node tree will in fact suffice:
 
 ```
-                |                 
-            division              
-                |                 
-       ------------------         
-       |                |         
-primaryHeading      paragraph     
-       |                |         
-     line             line        
-       |                |         
-   plainText       -----------    
-                   |         |    
-               plainText plainText
+                                                |                 
+                                            division              
+                                                |                 
+                                       ------------------         
+                                       |                |         
+                                primaryHeading      paragraph     
+                                       |                |         
+                                     line             line        
+                                       |                |         
+                                   plainText       -----------    
+                                                   |         |    
+                                               plainText plainText
 ```
 
-Locating the outer nodes that contribute to this inner node tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However the arrays of nodes that result are not in the above form. This package provides the means to form such node trees by way of a simple utility function.
-
-### Contents
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Example](#example)
-- [Usage](#usage)
-- [Building](#building)
-- [Contact](#contact)
-
-## Introduction
-
-...
+Locating the outer nodes that contribute to this inner node tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However, the arrays of nodes that result are not in the above form. This package provides the means to form such node trees.
 
 ## Installation
 
@@ -95,7 +93,36 @@ One last thing to bear in mind is that this package is included by way of a rela
 
 ## Usage
 
+Suppose that a Markdown document is being parsed by way of [Highmark](https://github.com/djalbat/highmark-markdown)'s lexer and parser:
+
+```
+const markdownLexer = MarkdownLexer.fromNothing(),
+      markdownParser = MarkdownParser.fromNothing();
+      
 ...
+
+const content = markdown, ///
+      tokens = markdownLexer.tokenise(content),
+      node = markdownParser.parse(tokens);
+
+...
+```
+
+A number of arrays of nodes can be created from the document's "outer" node by applying queries:
+
+```
+export function nodesFromNodeAndQueries(node, queries, nodes = []) {
+  queries.forEach((query) => {
+    const queryNodes = query.execute(node);
+
+    push(nodes, queryNodes);
+  });
+
+  return nodes;
+}
+```
+
+These can then be formed into an ""
 
 ## Building
 
