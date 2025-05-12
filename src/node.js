@@ -78,6 +78,18 @@ export default class Node {
     return parseTree;
   }
 
+  clone(...remainingArguments) {
+    const Class = this.constructor,
+          outerNode = this.outerNode,
+          parentNode = null,
+          childNodes = cloneChildNodes(this.childNodes),
+          node = new Class(outerNode, parentNode, childNodes, ...remainingArguments);
+
+    node.setChildNodesParentNode();
+
+    return node;
+  }
+
   static fromNothing(Class, ...remainingArguments) {
     if (Class === undefined) {
       Class = Node; ///
@@ -123,3 +135,13 @@ export default class Node {
 }
 
 Object.assign(Node.prototype, nodeMixins);
+
+function cloneChildNodes(childNodes) {
+  childNodes = childNodes.map((childNode) => {  ///
+    childNode = childNode.clone();  ///
+
+    return childNode;
+  });
+
+  return childNodes;
+}
