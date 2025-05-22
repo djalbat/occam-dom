@@ -42,9 +42,13 @@ export default class Node {
   }
 
   destroy() {
-    this.outerNode = null;
+    this.forEachChildNode((childNode) => {
+      childNode.destroy();
+    });
 
-    super.destroy();
+    this.outerNode = null;
+    this.parentNode = null;
+    this.childNodes = null;
   }
 
   asString() {
