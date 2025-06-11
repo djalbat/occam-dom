@@ -41,6 +41,12 @@ export default class Node {
     this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
+  matchOuterNode(outerNode) {
+    const outerNodeMatches = (this.outerNode === outerNode);
+
+    return outerNodeMatches;
+  }
+
   destroy() {
     this.forEachChildNode((childNode) => {
       childNode.destroy();
