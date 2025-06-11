@@ -53,7 +53,7 @@ export function isDescendantOf(nodeA, nodeB) {
   return descendantOf;
 }
 
-export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes, ...remainingArguments) {
+export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
   const nodes = outerNodes; ///
 
   orderNodes(nodes);
@@ -78,7 +78,7 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes, ...rem
     });
 
     const Class = ClassFromOuterNode(outerNode),
-          node = Class.fromOuterNode(outerNode, ...remainingArguments),
+          node = Class.fromOuterNode(outerNode),
           appendedChildNode = node; ///
 
     parentNode.appendChildNode(appendedChildNode);
