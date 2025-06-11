@@ -60,7 +60,7 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 
   const outerNode = null,
         Class = ClassFromOuterNode(outerNode),
-        topmostNode = Class.fromNothing(...remainingArguments),
+        topmostNode = Class.fromNothing(),
         outerNodeToNodeMap = new WeakMap();
 
   outerNodes.forEach((outerNode) => {
