@@ -129,15 +129,17 @@ import { nodeUtilities } from "occam-dom";
 
 const { topmostNodeFromOuterNodes } = nodeUtilities;
 
+import ClassFromOuterNode from "./classFromOuterNode";
+
 ...
 
 const outerNodes = nodes,   ///
-      topmostNode = topmostNodeFromOuterNodes(outerNode);
+      topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNode);
       
 ...
 ```
 
-You can also pass an optional callback argument to this function that maps outer nodes to inner node Classes:
+The first argument is a callback that maps outer node classes to inner node ones:
 
 ```
 import htmlNodeMap from "../map/node/html";
@@ -157,11 +159,9 @@ function ClassFromOuterNode(outerNode) {
 
   return Class;
 }
-
-const topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNode);
 ```
 
-Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every type of outer node that the algorithm may come across. 
+Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every type of outer node that the algorithm may come across, by the way. 
 
 ## Building
 

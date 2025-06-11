@@ -1,7 +1,5 @@
 "use strict";
 
-import Node from "../node";
-
 export function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
@@ -55,20 +53,14 @@ export function isDescendantOf(nodeA, nodeB) {
   return descendantOf;
 }
 
-export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
-  if (outerNodes === undefined) {
-    outerNodes = ClassFromOuterNode; ///
-
-    ClassFromOuterNode = (outerNode) => Node;  ///
-  }
-
+export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes, ...remainingArguments) {
   const nodes = outerNodes; ///
 
   orderNodes(nodes);
 
   const outerNode = null,
         Class = ClassFromOuterNode(outerNode),
-        topmostNode = Class.fromNothing(),
+        topmostNode = Class.fromNothing(...remainingArguments),
         outerNodeToNodeMap = new WeakMap();
 
   outerNodes.forEach((outerNode) => {
@@ -86,7 +78,7 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
     });
 
     const Class = ClassFromOuterNode(outerNode),
-          node = Class.fromOuterNode(outerNode),
+          node = Class.fromOuterNode(outerNode, ...remainingArguments),
           appendedChildNode = node; ///
 
     parentNode.appendChildNode(appendedChildNode);
