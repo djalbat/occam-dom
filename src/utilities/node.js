@@ -1,16 +1,5 @@
 "use strict";
 
-export function orderNodes(nodes) {
-  nodes.sort((nodeA, nodeB) => {
-    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
-          result = nodeALessThanNodeB ?
-                    -1 :
-                      +1;
-
-    return result;
-  });
-}
-
 export function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
@@ -46,6 +35,52 @@ export function isLessThan(nodeA, nodeB) {
   return lessThan;
 }
 
+export function isGreaterThan(nodeA, nodeB) {
+  const lessThan = isLessThan(nodeA, nodeB),
+        greaterThan = !lessThan;
+
+  return greaterThan;
+}
+
+export function isLessThanOfEqualTo(nodeA, nodeB) {
+  let lessThanOrEqualTo = false;
+
+  if (nodeA === nodeB) {
+    lessThanOrEqualTo = true;
+  } else {
+    const lessThan = isLessThan(nodeA, nodeB);
+
+    lessThanOrEqualTo = lessThan; ///
+  }
+
+  return lessThanOrEqualTo;
+}
+
+export function isGreaterThanOfEqualTo(nodeA, nodeB) {
+  let greaterThanOrEqualTo = false;
+
+  if (nodeA === nodeB) {
+    greaterThanOrEqualTo = true;
+  } else {
+    const greaterThan = isGreaterThan(nodeA, nodeB);
+
+    greaterThanOrEqualTo = greaterThan; ///
+  }
+
+  return greaterThanOrEqualTo;
+}
+
+export function orderNodes(nodes) {
+  nodes.sort((nodeA, nodeB) => {
+    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
+          result = nodeALessThanNodeB ?
+                    -1 :
+                      +1;
+
+    return result;
+  });
+}
+
 export function isAncestorOf(nodeA, nodeB) {
   const ancestorOf = nodeB.someAncestorNode((ancestorNodeB) => {
     if (nodeA === ancestorNodeB) {
@@ -54,13 +89,6 @@ export function isAncestorOf(nodeA, nodeB) {
   });
 
   return ancestorOf;
-}
-
-export function isGreaterThan(nodeA, nodeB) {
-  const lessThan = isLessThan(nodeA, nodeB),
-        greaterThan = !lessThan;
-
-  return greaterThan;
 }
 
 export function isDescendantOf(nodeA, nodeB) {
@@ -108,12 +136,14 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 }
 
 export default {
-  orderNodes,
   isLessThan,
-  isAncestorOf,
   isGreaterThan,
+  isLessThanOfEqualTo,
+  isGreaterThanOfEqualTo,
+  orderNodes,
+  isAncestorOf,
   isDescendantOf,
-  topmostNodeFromOuterNodes
+  topmostNodeFromOuterNodes,
 };
 
 function ancestorNodesFromNode(node) {
