@@ -1,5 +1,16 @@
 "use strict";
 
+export function orderNodes(nodes) {
+  nodes.sort((nodeA, nodeB) => {
+    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
+          result = nodeALessThanNodeB ?
+                    -1 :
+                      +1;
+
+    return result;
+  });
+}
+
 export function isLessThan(nodeA, nodeB) {
   let lessThan = null;
 
@@ -97,23 +108,13 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 }
 
 export default {
+  orderNodes,
   isLessThan,
   isAncestorOf,
   isGreaterThan,
   isDescendantOf,
   topmostNodeFromOuterNodes
 };
-
-function orderNodes(nodes) {
-  nodes.sort((nodeA, nodeB) => {
-    const nodeALessThanNodeB = isLessThan(nodeA, nodeB),
-          result = nodeALessThanNodeB ?
-                     -1 :
-                       +1;
-
-    return result;
-  });
-}
 
 function ancestorNodesFromNode(node) {
   const ancestorNodes = node.getAncestorNodes();
