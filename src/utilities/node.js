@@ -45,6 +45,13 @@ export function isAncestorOf(nodeA, nodeB) {
   return ancestorOf;
 }
 
+export function isGreaterThan(nodeA, nodeB) {
+  const lessThan = isLessThan(nodeA, nodeB),
+        greaterThan = !lessThan;
+
+  return greaterThan;
+}
+
 export function isDescendantOf(nodeA, nodeB) {
   const nodeBAncestorOfNodeA = isAncestorOf(nodeB, nodeA),
         nodeADescendantOfNodeB = nodeBAncestorOfNodeA,  ///
@@ -92,6 +99,7 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 export default {
   isLessThan,
   isAncestorOf,
+  isGreaterThan,
   isDescendantOf,
   topmostNodeFromOuterNodes
 };
