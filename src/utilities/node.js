@@ -42,8 +42,8 @@ export function isGreaterThan(nodeA, nodeB) {
   return greaterThan;
 }
 
-export function isLessThanOfEqualTo(nodeA, nodeB) {
-  let lessThanOrEqualTo = false;
+export function isLessThanOrEqualTo(nodeA, nodeB) {
+  let lessThanOrEqualTo;
 
   if (nodeA === nodeB) {
     lessThanOrEqualTo = true;
@@ -56,7 +56,7 @@ export function isLessThanOfEqualTo(nodeA, nodeB) {
   return lessThanOrEqualTo;
 }
 
-export function isGreaterThanOfEqualTo(nodeA, nodeB) {
+export function isGreaterThanOrEqualTo(nodeA, nodeB) {
   let greaterThanOrEqualTo = false;
 
   if (nodeA === nodeB) {
@@ -138,8 +138,8 @@ export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
 export default {
   isLessThan,
   isGreaterThan,
-  isLessThanOfEqualTo,
-  isGreaterThanOfEqualTo,
+  isLessThanOrEqualTo,
+  isGreaterThanOrEqualTo,
   orderNodes,
   isAncestorOf,
   isDescendantOf,

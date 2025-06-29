@@ -5,6 +5,7 @@ import { nodeMixins } from "occam-parsers";
 import NodeParseTree from "./parseTree/node";
 
 import { EMPTY_STRING } from "./constants";
+import { isLessThan, isGreaterThan, isLessThanOrEqualTo, isGreaterThanOrEqualTo } from "./utilities/node";
 
 export default class Node {
   constructor(outerNode, parentNode, childNodes) {
@@ -39,6 +40,38 @@ export default class Node {
           addedChildNodes = childNodes;  ///
 
     this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
+  }
+
+  isLessThan(node) {
+    const nodeA = this, ///
+          nodeB = node, ///
+          lessThan = isLessThan(nodeA, nodeB);
+
+    return lessThan;
+  }
+
+  isGreaterThan(node) {
+    const nodeA = this, ///
+          nodeB = node, ///
+          greaterThan = isGreaterThan(nodeA, nodeB);
+
+    return greaterThan;
+  }
+
+  isLessThanOrEqualTo(node) {
+    const nodeA = this, ///
+          nodeB = node, ///
+          lessThanOrEqualTo = isLessThanOrEqualTo(nodeA, nodeB);
+
+    return lessThanOrEqualTo;
+  }
+
+  isGreaterThanOrEqualTo(node) {
+    const nodeA = this, ///
+        nodeB = node, ///
+        greaterThanOrEqualTo = isGreaterThanOrEqualTo(nodeA, nodeB);
+
+    return greaterThanOrEqualTo;
   }
 
   matchOuterNode(outerNode) {
