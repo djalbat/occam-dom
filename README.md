@@ -13,9 +13,11 @@
 
 ## Introduction
 
-Specifically, "outer" token arrays and parse trees resulting from the user of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively, can be refined into "inner" token arrays and parse trees for convenience. 
+Specifically, "outer" token arrays and parse trees result from the use of Occam's [lexers](https://github.com/djalbat/occam-lexers) and [parsers](https://github.com/djalbat/occam-parsers), respectively.
+These can be distilled into "inner" token arrays and parse trees for a variety of tasks. 
 
-An example is helpful. Consider the following outer parse tree that results from parsing some simple Markdown.
+An example is helpful. 
+Consider the following outer parse tree that results from parsing some simple Markdown.
 
 ```
                                                   |                                                   
@@ -38,7 +40,8 @@ An example is helpful. Consider the following outer parse tree that results from
                 "Heading"[word] [0]                             "Paragraph"[word] [2] "."[special] [2]
 ```
 
-This contains far more information than is needed to render the markdown as HTML. The following inner parse tree will in fact suffice:
+This contains far more information than is needed to render the Markdown as HTML. 
+The following inner parse tree will in fact suffice:
 
 ```
                                                 |                 
@@ -55,7 +58,9 @@ This contains far more information than is needed to render the markdown as HTML
                                                plainText plainText
 ```
 
-Locating the outer nodes that contribute to this inner parse tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). However, the arrays of nodes that result are not in the above form. This package provides the means to form such parse trees.
+Locating the outer nodes that contribute to this inner parse tree is straightforward enough using Occam's [queries](https://github.com/djalbat/occam-query). 
+However, the arrays of nodes that result are not in the above form. 
+This package provides the means to form such parse trees.
 
 ## Installation
 
@@ -83,13 +88,16 @@ The example will then be available at the following URL:
 
 http://localhost:8888
 
-The source for the example can be found in the `src/example.js` file and corresponding `src/example` folder. You are encouraged to try the example whilst reading what follows. You can rebuild it on the fly with the following command:
+The source for the example can be found in the `src/example.js` file and corresponding `src/example` folder. 
+You are encouraged to try the example whilst reading what follows. 
+You can rebuild it on the fly with the following command:
 
     npm run watch-debug
 
 The development server will reload the page whenever you make changes.
 
-One last thing to bear in mind is that this package is included by way of a relative rather than a package import. If you are importing it into your own application, however, you should use the standard package import.
+One last thing to bear in mind is that this package is included by way of a relative rather than a package import. 
+If you are importing it into your own application, however, you should use the standard package import.
 
 ## Usage
 
@@ -161,7 +169,8 @@ function ClassFromOuterNode(outerNode) {
 }
 ```
 
-Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. There is no need to provide a unique class for every type of outer node that the algorithm may come across, by the way. 
+Note that the topmost inner node has no corresponding outer node and that a default of `HTMLNode` has been provided. 
+There is no need to provide a unique class for every type of outer node that the algorithm may come across, by the way. 
 
 ## Building
 
