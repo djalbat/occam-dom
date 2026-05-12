@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import Textarea from "../textarea";
 
-import { SPACE } from "../../constants";
-
 class ExpressionsTextarea extends Textarea {
   getExpressions() {
     const value = this.getValue(),
@@ -16,10 +14,9 @@ class ExpressionsTextarea extends Textarea {
   }
 
   setExpressions(expressions) {
-    const space = SPACE,
-          replacer = null,
-          expressionsString = JSON.stringify(expressions, replacer, space),
-          value = expressionsString;  ///
+    const json = expressions, ///
+          jsonString = JSON.stringify(json, null, 2),
+          value = jsonString;  ///
 
     this.setValue(value);
   }
