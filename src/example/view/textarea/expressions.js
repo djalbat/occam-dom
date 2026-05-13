@@ -7,8 +7,9 @@ import Textarea from "../textarea";
 class ExpressionsTextarea extends Textarea {
   getExpressions() {
     const value = this.getValue(),
-          expressionString = value, ///
-          expressions = JSON.parse(expressionString); ///
+          jsonString = value, ///
+          json = JSON.parse(jsonString),
+          expressions = json; ///
 
     return expressions;
   }
