@@ -4,6 +4,8 @@ import Node from "../node";
 
 import { orderNodes } from "../utilities/node";
 
+import { nodesFromNodeAndQueries } from "../utilities/query";
+
 export function topmostNodeFromOuterNodes(outerNodes, ClassFromOuterNode = DefaultClassFromOuterNode) {
   const nodes = outerNodes; ///
 
@@ -40,8 +42,23 @@ export function topmostNodeFromOuterNodes(outerNodes, ClassFromOuterNode = Defau
   return topmostNode;
 }
 
+export function topmostNodeFromOuterNodeAndQueries(outerNode, queries, ClassFromOuterNode = DefaultClassFromOuterNode) {
+  let topmostNode = null;
+
+  if (outerNode !== null) {
+    const node = outerNode, ///
+          nodes = nodesFromNodeAndQueries(node, queries),
+          outerNodes = nodes; ///
+
+    topmostNode = topmostNodeFromOuterNodes(outerNodes, ClassFromOuterNode);
+  }
+
+  return topmostNode;
+}
+
 export default {
-  topmostNodeFromOuterNodes
+  topmostNodeFromOuterNodes,
+  topmostNodeFromOuterNodeAndQueries
 };
 
 function DefaultClassFromOuterNode(outerNode) {
