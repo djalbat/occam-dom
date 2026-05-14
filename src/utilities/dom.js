@@ -1,10 +1,12 @@
 "use strict";
 
+import { queryUtilities } from "occam-query";
+
 import Node from "../node";
 
 import { orderNodes } from "../utilities/node";
 
-import { nodesFromNodeAndQueries } from "../utilities/query";
+const { nodesFromNodeAndQueries } = queryUtilities;
 
 export function topmostNodeFromOuterNodes(outerNodes, ClassFromOuterNode = DefaultClassFromOuterNode) {
   const nodes = outerNodes; ///
