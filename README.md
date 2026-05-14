@@ -142,12 +142,12 @@ import ClassFromOuterNode from "./classFromOuterNode";
 ...
 
 const outerNodes = nodes,   ///
-      topmostNode = topmostNodeFromOuterNodes(ClassFromOuterNode, outerNode);
+      topmostNode = topmostNodeFromOuterNodes(outerNode, ClassFromOuterNode);
       
 ...
 ```
 
-The first argument is a callback that maps outer node classes to inner node ones:
+The last argument is a an optional callback that maps outer node classes to inner node ones:
 
 ```
 import htmlNodeMap from "../map/node/html";

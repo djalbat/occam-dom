@@ -99,42 +99,6 @@ export function isDescendantOf(nodeA, nodeB) {
   return descendantOf;
 }
 
-export function topmostNodeFromOuterNodes(ClassFromOuterNode, outerNodes) {
-  const nodes = outerNodes; ///
-
-  orderNodes(nodes);
-
-  const outerNode = null,
-        Class = ClassFromOuterNode(outerNode),
-        topmostNode = Class.fromNothing(),
-        outerNodeToNodeMap = new WeakMap();
-
-  outerNodes.forEach((outerNode) => {
-    let parentNode = topmostNode; ///
-
-    outerNode.someAncestorNode((ancestorNode) => {
-      const outerNode = ancestorNode, ///
-            node = outerNodeToNodeMap.get(outerNode) || null;
-
-      if (node !== null) {
-        parentNode = node;  ///
-
-        return true;
-      }
-    });
-
-    const Class = ClassFromOuterNode(outerNode),
-          node = Class.fromOuterNode(outerNode),
-          appendedChildNode = node; ///
-
-    parentNode.appendChildNode(appendedChildNode);
-
-    outerNodeToNodeMap.set(outerNode, node);
-  });
-
-  return topmostNode;
-}
-
 export default {
   isLessThan,
   isGreaterThan,
@@ -142,8 +106,7 @@ export default {
   isGreaterThanOrEqualTo,
   orderNodes,
   isAncestorOf,
-  isDescendantOf,
-  topmostNodeFromOuterNodes,
+  isDescendantOf
 };
 
 function ancestorNodesFromNode(node) {

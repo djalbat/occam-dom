@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { nodeUtilities } from "../index" ///
+import { domUtilities } from "../index" ///
 import { CSSLexer, CSSParser } from "with-style";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 
@@ -16,7 +16,7 @@ import InnerParseTreeTextarea from "./view/textarea/parseTree/inner";
 
 import { queryByExpressions } from "./utilities/query";
 
-const { topmostNodeFromOuterNodes: topmostInnerNodeFromOuterNodes } = nodeUtilities;
+const { topmostNodeFromOuterNodes } = domUtilities;
 
 const cssLexer = CSSLexer.fromNothing(),
       cssParser = CSSParser.fromNothing();
@@ -34,8 +34,8 @@ class View extends Element {
     const outerNode = node, ///
           expressions = this.getExpressions(),
           outerNodes = queryByExpressions(outerNode, expressions),
-          topmostInnerNode = topmostInnerNodeFromOuterNodes(outerNodes),
-          innerNode = topmostInnerNode, ///
+          topmostNode = topmostNodeFromOuterNodes(outerNodes),
+          innerNode = topmostNode, ///
           outerParseTree = outerNode.asParseTree(tokens),
           innerParseTree = innerNode.asParseTree();
 
