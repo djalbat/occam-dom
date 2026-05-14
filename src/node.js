@@ -42,6 +42,48 @@ export default class Node {
     this.spliceChildNodes(startIndex, deleteCount, addedChildNodes);
   }
 
+  getDescendantNodes(descendantNodes = []) {
+    const childNodes = this.getChildNodes();
+
+    childNodes.forEach((childNode) => {
+      const descendantNode = childNode; ///
+
+      descendantNodes.push(descendantNode);
+
+      childNode.getDescendantNodes(descendantNodes);
+    });
+
+    return descendantNodes;
+  }
+
+  retrieveNode(callback) {
+    let node = null;
+
+    if (node === null) {
+      const childNodes = this.getChildNodes();
+
+      childNodes.some((childNode) => {
+        node = childNode.retrieveNode(callback);
+
+        if (node !== null) {
+          return true;
+        }
+      });
+    }
+
+    if (node === null) {
+      node = this;
+
+      const result = callback(node);
+
+      if (!result) {
+        node = null;
+      }
+    }
+
+    return node;
+  }
+
   isLessThan(node) {
     const nodeA = this, ///
           nodeB = node, ///
