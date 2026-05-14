@@ -7,6 +7,8 @@ import NodeParseTree from "./parseTree/node";
 import { EMPTY_STRING } from "./constants";
 import { isLessThan, isGreaterThan, isLessThanOrEqualTo, isGreaterThanOrEqualTo } from "./utilities/node";
 
+const { addChildNodes, removeChildNodes } = nodeMixins;
+
 export default class Node {
   constructor(outerNode, parentNode, childNodes) {
     this.outerNode = outerNode;
@@ -120,6 +122,39 @@ export default class Node {
     const outerNodeMatches = (this.outerNode === outerNode);
 
     return outerNodeMatches;
+  }
+
+  addChildNodes(addedChildNodes, startIndex) {
+    addChildNodes.call(this, addedChildNodes, startIndex);
+  }
+
+  removeChildNodes(removedChildNodes = null) {
+    let childNodes;
+
+    childNodes = this.getChildNodes();
+
+    if (removedChildNodes !== null) {
+      childNodes = childNodes.filter((childNode) => { ///
+        const outerNode = childNode.getOuterNode(),
+              index = removedChildNodes.findIndex((removedChildNode) => {
+                const outerNodeMatches = removedChildNode.matchOuterNode(outerNode);
+
+                if (outerNodeMatches) {
+                  return true;
+                }
+              });
+
+        if (index !== -1) {
+          return true;
+        }
+      });
+    }
+
+    removedChildNodes = childNodes;  ///
+
+    removedChildNodes = removeChildNodes.call(this, removedChildNodes);
+
+    return removedChildNodes;
   }
 
   destroy() {
