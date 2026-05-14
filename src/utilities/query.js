@@ -53,3 +53,11 @@ export function nodesFromNodeAndQueries(node, queries, nodes = []) {
 
   return nodes;
 }
+
+export default {
+  nodeQuery,
+  nodesQuery,
+  nodeFromNodeAndQuery,
+  nodesFromNodeAndQuery,
+  nodesFromNodeAndQueries
+};
