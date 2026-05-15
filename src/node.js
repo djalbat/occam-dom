@@ -7,7 +7,7 @@ import NodeParseTree from "./parseTree/node";
 import { EMPTY_STRING } from "./constants";
 import { isLessThan, isGreaterThan, isLessThanOrEqualTo, isGreaterThanOrEqualTo } from "./utilities/node";
 
-const { addChildNodes, removeChildNodes } = nodeMixins;
+const { addChildNodes, removeChildNodes, ...remainingNodeMixins } = nodeMixins;
 
 export default class Node {
   constructor(outerNode, parentNode, childNodes) {
@@ -254,7 +254,7 @@ export default class Node {
   }
 }
 
-Object.assign(Node.prototype, nodeMixins);
+Object.assign(Node.prototype, remainingNodeMixins);
 
 function cloneChildNodes(childNodes) {
   childNodes = childNodes.map((childNode) => {  ///
